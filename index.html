@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Next N?</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+            default-src 'self';
+            connect-src https://api.511.org;
+            style-src 'self';"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="flexbox">
+      <div id="n-circle">N</div>
+      <h1 class="title">Judah</h1>
+    </div>
+    <h2 id="time"></h2>
+    <form id="api-key-form" class="hidden">
+      <input
+        type="text"
+        id="api-key-input"
+        placeholder="Enter API Key"
+        required
+      />
+      <button type="submit">Save API Key</button>
+    </form>
+    <div id="errors"></div>
+    <div id="arrivals-list"></div>
+    <div class="flexbox">
+      <button id="refresh" onclick="performFetch()">Force Re-fetch</button>
+      <button id="clear-api" onclick="setApiKey('')">Clear API Key</button>
+    </div>
+  </body>
+</html>

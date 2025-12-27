@@ -1,0 +1,104 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #0e0e0e;
+  font-family: Arial, sans-serif;
+  padding: 2em;
+}
+
+#n-circle {
+  width: 5rem;
+  height: 5rem;
+  background-color: #004988;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4em;
+  font-weight: bold;
+  color: white;
+}
+
+#time {
+  font-size: 3em;
+  color: rgb(255, 239, 210);
+}
+
+button {
+  border: none;
+  padding: 0.5em 1em;
+  margin-right: 0.5rem;
+  color: rgb(255, 239, 210);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #474747;
+  cursor: pointer;
+}
+
+.key-error {
+  color: rgb(220, 140, 140);
+  font-family: monospace;
+  font-weight: bold;
+  margin-top: 1em;
+  font-size: 2em;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2em;
+}
+
+.title {
+  color: white;
+  font-size: 5em;
+  margin-left: 1rem;
+}
+
+#arrivals-list {
+  height: 23rem;
+}
+
+.arrival-container {
+  display: flex;
+  color: white;
+  background-color: #505050;
+  margin: 1em 0;
+  padding: 1em;
+  flex-direction: column;
+}
+.arrival-info-container {
+  display: flex;
+  align-items: center;
+}
+.arrival-id {
+  color: #8d8d8d;
+}
+.arrival-in {
+  font-weight: bold;
+  font-size: 3em;
+  width: 5em;
+}
+.arrival-at {
+  padding-left: 1em;
+  font-size: 1.5em;
+  color: #bfbfbf;
+}
+
+#api-key-form {
+  margin-bottom: 1em;
+}
+
+#api-key-input {
+  border: inherit;
+  background-color: transparent;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
