@@ -64,7 +64,7 @@ const performFetch = async () => {
       "MonitoredStopVisit"
     ].map((x) => {
       return {
-        id: x["MonitoredVehicleJourney"]["VehicleRef"],
+        id: x["MonitoredVehicleJourney"]["VehicleRef"] ?? "--",
         arrival:
           x["MonitoredVehicleJourney"]["MonitoredCall"]["ExpectedArrivalTime"],
       };

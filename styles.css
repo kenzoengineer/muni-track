@@ -60,7 +60,7 @@ button {
 }
 
 #arrivals-list {
-  height: 23rem;
+  min-height: 23rem;
 }
 
 .arrival-container {
