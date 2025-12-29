@@ -1,38 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>MUNI Board</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Extremely lightweight real-time MUNI arrival tracker"
+    />
     <link rel="stylesheet" type="text/css" href="./styles.css" />
     <script type="module" src="./src/script.ts"></script>
   </head>
   <body>
-    <h2 id="time"></h2>
-    <div class="flexbox">
-      <h1 class="title">Let's see stop with ID:</h1>
-      <form id="stop-form">
-        <div class="flexbox-nomargin">
-          <input id="stop-input" type="text" placeholder="12345" required />
-          <button type="submit">Go</button>
-        </div>
+    <header>
+      <h2 id="time"></h2>
+      <div class="flexbox">
+        <h1 class="title">Let's see stop with ID:</h1>
+        <form id="stop-form">
+          <div class="flexbox-nomargin">
+            <input id="stop-input" type="text" placeholder="12345" required />
+            <button type="submit">Go</button>
+          </div>
+        </form>
+      </div>
+    </header>
+    <main>
+      <form id="api-key-form" class="hidden">
+        <input
+          type="text"
+          id="api-key-input"
+          placeholder="Enter API Key"
+          required
+        />
+        <button type="submit">Save API Key</button>
       </form>
-    </div>
-    <form id="api-key-form" class="hidden">
-      <input
-        type="text"
-        id="api-key-input"
-        placeholder="Enter API Key"
-        required
-      />
-      <button type="submit">Save API Key</button>
-    </form>
-    <div id="errors"></div>
-    <div id="all-arrivals"></div>
-    <div class="flexbox">
-      <button id="refresh">Force Re-fetch</button>
-      <button id="clear-api">Clear API Key</button>
-    </div>
+      <div id="errors"></div>
+      <div id="all-arrivals"></div>
+      <div class="flexbox">
+        <button id="refresh">Force Re-fetch</button>
+        <button id="clear-api">Clear API Key</button>
+      </div>
+    </main>
   </body>
 </html>
