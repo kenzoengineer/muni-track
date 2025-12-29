@@ -2,7 +2,7 @@
 
 Lightweight MUNI arrival tracker. Emphasis on lightweight.
 
-0 dependencies, 100% vanilla HTML and JS.
+0 production dependencies, 100% vanilla HTML and JS.
 
 Currently only tracks one direction for one stop for one line. Configuration will be added.
 
