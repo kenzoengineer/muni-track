@@ -1,0 +1,18 @@
+{
+  "name": "muni-track",
+  "version": "1.0.0",
+  "description": "Lightweight MUNI arrival tracker. Emphasis on lightweight.",
+  "private": true,
+  "author": "kenzoengineer",
+  "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "dev": "concurrently \"tsc -w\" \"live-server --open=/index.html --no-css-inject\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "live-server": "^1.2.2",
+    "typescript": "^5.9.3"
+  }
+}

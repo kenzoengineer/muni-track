@@ -5,6 +5,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- comment this out during dev -->
     <meta
       http-equiv="Content-Security-Policy"
       content="
@@ -12,8 +13,8 @@
             connect-src https://api.511.org;
             style-src 'self';"
     />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <script src="dist/script.js" defer></script>
   </head>
   <body>
     <h2 id="time"></h2>
@@ -40,7 +41,6 @@
     <div class="flexbox">
       <button id="refresh">Force Re-fetch</button>
       <button id="clear-api">Clear API Key</button>
-      <button id="pause">Pause</button>
     </div>
   </body>
 </html>

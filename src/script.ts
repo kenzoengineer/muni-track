@@ -23,7 +23,19 @@ const MUNI_MAP = {
 
 // global store
 
-let store = {};
+interface Arrival {
+  id: string;
+  arrival: string;
+}
+
+interface ArrivalsStore {
+  [lineRef: string]: {
+    publishedLineName: string;
+    arrivals: Arrival[];
+  };
+}
+
+let store: ArrivalsStore = {};
 let pause = false;
 
 // really basic rate limiting
@@ -31,7 +43,7 @@ let lastFetch = 0;
 
 // utils //
 
-const createWithClass = (tag, className) => {
+const createWithClass = (tag: string, className: string) => {
   const elem = document.createElement(tag);
   elem.classList.add(className);
   return elem;
@@ -42,11 +54,19 @@ const createWithClass = (tag, className) => {
  * converts aaa bbb -> Aaa Bbb and aaa-bbb to Aaa-Bbb
  * also converts AAA BBB -> Aaa Bbb, etc.
  */
-const toTitleCase = (str) => {
+const toTitleCase = (str: string) => {
   return str.replace(
     /([^\W_]+[^\s-]*) */g,
     (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
   );
+};
+
+const forceGetById = <T extends HTMLElement>(id: string): T => {
+  const el = document.getElementById(id);
+  if (!el) {
+    throw new Error(`Missing element: ${id}`);
+  }
+  return el as T;
 };
 
 const createKeyError = () => {
@@ -57,17 +77,17 @@ const createKeyError = () => {
 
 const onApiKeySuccess = () => {
   performFetch();
-  document.getElementById("api-key-input").value = "";
-  document.getElementById("api-key-form").classList.add("hidden");
-  document.getElementById("errors").innerHTML = "";
+  forceGetById<HTMLInputElement>("api-key-input").value = "";
+  forceGetById<HTMLFormElement>("api-key-form").classList.add("hidden");
+  forceGetById<HTMLDivElement>("errors").innerHTML = "";
 };
 
 const onFetchError = () => {
   store = {};
-  document.getElementById("all-arrivals").innerHTML = "";
-  document.getElementById("errors").innerHTML = "";
-  document.getElementById("errors").appendChild(createKeyError());
-  document.getElementById("api-key-form").classList.remove("hidden");
+  forceGetById<HTMLDivElement>("all-arrivals").innerHTML = "";
+  forceGetById<HTMLDivElement>("errors").innerHTML = "";
+  forceGetById<HTMLDivElement>("errors").appendChild(createKeyError());
+  forceGetById<HTMLFormElement>("api-key-form").classList.remove("hidden");
 };
 
 // local storage //
@@ -76,7 +96,7 @@ const API_LOCAL_STORE_KEY = "511-key";
 const getApiKey = () => {
   return localStorage.getItem(API_LOCAL_STORE_KEY);
 };
-const setApiKey = (key) => {
+const setApiKey = (key: string) => {
   localStorage.setItem(API_LOCAL_STORE_KEY, key);
 };
 
@@ -84,13 +104,13 @@ const STOP_CODE_KEY = "stopcode";
 const getStopCode = () => {
   return localStorage.getItem(STOP_CODE_KEY) || "14028"; // default stop code;
 };
-const setStopCode = (stop) => {
+const setStopCode = (stop: string) => {
   localStorage.setItem(STOP_CODE_KEY, stop);
 };
 
 // main logic //
 
-const performFetch = async (force) => {
+const performFetch = async (force: boolean = false) => {
   if (!getApiKey()) return onFetchError();
   if (Date.now() - lastFetch < 5000 && !force) return; // 5s rate limit
 
@@ -122,10 +142,11 @@ const performFetch = async (force) => {
       const publishedLineName =
         visit.querySelector("PublishedLineName")?.textContent ?? "Unknown";
       const arrivalTime =
-        visit.querySelector("MonitoredCall > ExpectedArrivalTime")
+        (visit.querySelector("MonitoredCall > ExpectedArrivalTime")
           ?.textContent ||
-        visit.querySelector("MonitoredCall > ExpectedDepartureTime")
-          ?.textContent;
+          visit.querySelector("MonitoredCall > ExpectedDepartureTime")
+            ?.textContent) ??
+        "";
       if (!store[lineRef]) {
         store[lineRef] = {
           publishedLineName: toTitleCase(publishedLineName),
@@ -144,6 +165,8 @@ const performFetch = async (force) => {
 
 const updateTimes = () => {
   const listElem = document.getElementById("all-arrivals");
+  if (!listElem) return;
+
   listElem.innerHTML = "";
   for (const lineKey in store) {
     const lineName = store[lineKey].publishedLineName;
@@ -156,8 +179,9 @@ const updateTimes = () => {
       "h2",
       lineKey.length > 2 ? "circleSmall" : "circle"
     );
-    if (MUNI_MAP[lineKey]) {
-      lineCircle.style.backgroundColor = MUNI_MAP[lineKey];
+    if (lineKey in MUNI_MAP) {
+      lineCircle.style.backgroundColor =
+        MUNI_MAP[lineKey as keyof typeof MUNI_MAP];
     }
     lineCircle.textContent = lineKey;
     const title = createWithClass("h2", "line-title");
@@ -212,7 +236,7 @@ const updateTimes = () => {
 
 const updateClock = () => {
   var display = new Date().toLocaleTimeString();
-  document.getElementById("time").textContent = display;
+  forceGetById<HTMLHeadingElement>("time").textContent = display;
 };
 
 const perSecondTick = () => {
@@ -232,19 +256,19 @@ const per15SecondsTick = () => {
   setTimeout(per15SecondsTick, delay);
 };
 
-const handleApiKeySubmit = (e) => {
+const handleApiKeySubmit = (e: Event) => {
   e.preventDefault();
-  const key = document.getElementById("api-key-input").value.trim();
+  const key = forceGetById<HTMLInputElement>("api-key-input").value.trim();
   if (key) {
     setApiKey(key);
     onApiKeySuccess();
   }
 };
 
-const handleStopSubmit = (e) => {
+const handleStopSubmit = (e: Event) => {
   console.log(e);
   e.preventDefault();
-  const _stopCode = document.getElementById("stop-input").value.trim();
+  const _stopCode = forceGetById<HTMLInputElement>("stop-input").value.trim();
   console.log(_stopCode);
   if (_stopCode) {
     setStopCode(_stopCode);
@@ -254,7 +278,7 @@ const handleStopSubmit = (e) => {
 
 const setup = () => {
   // prepopulate stop code input
-  document.getElementById("stop-input").value = getStopCode();
+  forceGetById<HTMLInputElement>("stop-input").value = getStopCode();
   // ensure api key
   if (!getApiKey()) {
     onFetchError();
@@ -268,19 +292,15 @@ const setup = () => {
 document.addEventListener("DOMContentLoaded", () => {
   setup();
   document
-    .getElementById("api-key-form")
-    .addEventListener("submit", (e) => handleApiKeySubmit(e));
+    ?.getElementById("api-key-form")
+    ?.addEventListener("submit", (e) => handleApiKeySubmit(e));
   document
-    .getElementById("refresh")
-    .addEventListener("click", () => performFetch(true));
+    ?.getElementById("refresh")
+    ?.addEventListener("click", () => performFetch(true));
   document
-    .getElementById("clear-api")
-    .addEventListener("click", () => setApiKey(""));
-  document.getElementById("pause").addEventListener("click", () => {
-    pause = !pause;
-    document.getElementById("pause").textContent = pause ? "Resume" : "Pause";
-  });
+    ?.getElementById("clear-api")
+    ?.addEventListener("click", () => setApiKey(""));
   document
-    .getElementById("stop-form")
-    .addEventListener("submit", (e) => handleStopSubmit(e));
+    ?.getElementById("stop-form")
+    ?.addEventListener("submit", (e) => handleStopSubmit(e));
 });
