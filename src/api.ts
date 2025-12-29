@@ -18,7 +18,7 @@ export const onFetchError = () => {
 };
 export const performFetch = async (force: boolean = false) => {
   if (!getApiKey()) return onFetchError();
-  if (Date.now() - globals.lastFetch < 5000 && !force) return; // 5s rate limit
+  if (Date.now() - globals.lastFetch < 15000 && !force) return; // 15s rate limit
 
   const key = getApiKey();
 
