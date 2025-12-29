@@ -8,7 +8,7 @@ export const setApiKey = (key: string) => {
 
 const STOP_CODE_KEY = "stopcode";
 export const getStopCode = () => {
-  return localStorage.getItem(STOP_CODE_KEY) || "14028"; // default stop code;
+  return localStorage.getItem(STOP_CODE_KEY) || "15726"; // default stop code;
 };
 export const setStopCode = (stop: string) => {
   localStorage.setItem(STOP_CODE_KEY, stop);
