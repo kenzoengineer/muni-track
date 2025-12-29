@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>N Arrival</title>
+    <title>MUNI Board</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,11 +16,16 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <div class="flexbox">
-      <div id="n-circle">N</div>
-      <h1 class="title">Judah</h1>
-    </div>
     <h2 id="time"></h2>
+    <div class="flexbox">
+      <h1 class="title">Let's see stop with ID:</h1>
+      <form id="stop-form">
+        <div class="flexbox-nomargin">
+          <input id="stop-input" type="text" placeholder="12345" required />
+          <button type="submit">Go</button>
+        </div>
+      </form>
+    </div>
     <form id="api-key-form" class="hidden">
       <input
         type="text"
@@ -31,10 +36,11 @@
       <button type="submit">Save API Key</button>
     </form>
     <div id="errors"></div>
-    <div id="arrivals-list"></div>
+    <div id="all-arrivals"></div>
     <div class="flexbox">
-      <button id="refresh" onclick="performFetch()">Force Re-fetch</button>
-      <button id="clear-api" onclick="setApiKey('')">Clear API Key</button>
+      <button id="refresh">Force Re-fetch</button>
+      <button id="clear-api">Clear API Key</button>
+      <button id="pause">Pause</button>
     </div>
   </body>
 </html>

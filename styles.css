@@ -9,22 +9,43 @@ body {
   padding: 2em;
 }
 
-#n-circle {
-  width: 5rem;
-  height: 5rem;
-  background-color: #004988;
+.circle {
+  width: 3rem;
+  height: 3rem;
+  background-color: #333333;
   border-radius: 50%;
+  margin-right: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4em;
+  font-size: 2em;
   font-weight: bold;
   color: white;
 }
 
+.circleSmall {
+  width: 3rem;
+  height: 3rem;
+  background-color: #333333;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+}
+
+.line-title {
+  font-size: 2em;
+  color: white;
+}
+
 #time {
-  font-size: 3em;
+  font-size: 4em;
   color: rgb(255, 239, 210);
+  margin-bottom: 1rem;
 }
 
 button {
@@ -47,26 +68,52 @@ button {
   font-size: 2em;
 }
 
+.flexbox-nomargin {
+  display: flex;
+  align-items: center;
+}
+
 .flexbox {
   display: flex;
   align-items: center;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .title {
   color: white;
-  font-size: 5em;
-  margin-left: 1rem;
+  font-size: 2em;
+  margin-right: 1rem;
 }
 
-#arrivals-list {
+#stop-input {
+  background-color: unset;
+  color: #505050;
+  font-size: 2em;
+  width: 5ch;
+  padding: 0 0.25rem;
+  margin-right: 1rem;
+  border: unset;
+  border-bottom: 0.25rem solid white;
+}
+
+#all-arrivals {
+  display: flex;
+  flex-wrap: wrap;
   min-height: 23rem;
+}
+
+.line-container {
+  margin-right: 1em;
+}
+
+.imminent {
+  color: rgb(255, 239, 210);
 }
 
 .arrival-container {
   display: flex;
   color: white;
-  background-color: #505050;
+  background-color: #1e1e1e;
   margin: 1em 0;
   padding: 1em;
   flex-direction: column;
